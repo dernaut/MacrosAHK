@@ -1,0 +1,143 @@
+{$CLEO .cs}
+
+0000:
+
+while 8AFA:
+    wait 0
+end
+
+while true
+    wait 0
+    if
+    call @is_cp_active 0 
+    then
+        call @get_cp_pos 0 X 1@ Y 2@ Z 3@
+        if and
+        1@ == 1090.250977  // hpc 
+        2@ == -1247.644653
+        3@ == 13.546900
+        then
+            wait 2000
+            0C8F: samp process_chat_input "!El punto de venta de la metanfetamina es en HPC."
+            while true
+                wait 0
+                call @get_cp_pos 0 X 1@ Y 2@ Z 3@
+                if and
+                not 1@ == 1090.250977     
+                not 2@ == -1247.644653
+                not 3@ == 15.827200 // hpc
+                then
+                    break
+                end
+            end
+        else
+            if and
+            1@ == 2210.272461 // armero 
+            2@ == -2293.671875
+            3@ == 14.764700
+            then
+                wait 2000
+                0C8F: samp process_chat_input "!El punto de venta de la metanfetamina es en ARMERO."
+                while true
+                    wait 0
+                    call @get_cp_pos 0 X 1@ Y 2@ Z 3@
+                    if and
+                    not 1@ == 2210.272461 
+                    not 2@ == -2293.671875
+                    not 3@ == 14.764700
+                    then
+                    break
+                end
+            end
+        else
+            if and
+            1@ == 2445.476074  // 24/7
+            2@ == -1765.572266
+            3@ == 13.587800
+            then
+                wait 2000
+                0C8F: samp process_chat_input "!El punto de venta de la metanfetamina es en el 24/7"
+                while true
+                    wait 0
+                    call @get_cp_pos 0 X 1@ Y 2@ Z 3@
+                    if and
+                    not 1@ == 2445.476074 
+                    not 2@ == -1765.572266
+                    not 3@ == 13.587800
+                    then
+                    break                   
+                    end
+                  end
+        else           
+            if and
+            1@ == 2432.773682  // CJ 
+            2@ == -1673.560913
+            3@ == 13.638300
+            then
+                wait 2000
+                0C8F: samp process_chat_input "!El punto de venta de la metanfetamina es en CJ."
+                while true
+                    wait 0
+                    call @get_cp_pos 0 X 1@ Y 2@ Z 3@
+                    if and
+                    not 1@ == 2432.773682 
+                    not 2@ == -1673.560913
+                    not 3@ == 13.638300
+                    then
+                    break                   
+                        end
+                     end
+        else
+            if and
+            1@ == 1518.664307  // LSPD 
+            2@ == -1474.564941
+            3@ == 9.500000
+            then
+                wait 2000
+                0C8F: samp process_chat_input "!El punto de venta de la metanfetamina es en LSPD."
+                while true
+                    wait 0
+                    call @get_cp_pos 0 X 1@ Y 2@ Z 3@
+                    if and
+                    not 1@ == 1518.664307
+                    not 2@ == -1474.564941
+                    not 3@ == 9.500000
+                    then
+                    break                     
+                           end                 
+                        end
+                     end                                     
+                  end                       
+               end                 
+            end
+        end
+    end
+end
+                               
+:is_cp_active
+if 0AA2: 0@ = loadlib "samp.dll"
+then 0A8E: 1@ = 0@ + 0x21A10C
+    0A8D: 1@ = readMem 1@ sz 4 vp 0
+    1@ += 0x24
+    0A8D: 1@ = readMem 1@ sz 4 vp 0
+    if 1@ == true
+    then 0485:  return_true
+    else 059A:  return_false
+    end
+    0AA3: freelib 0@
+end
+0AB2: ret 0
+
+:get_cp_pos
+if 0AA2: 0@ = loadlib "samp.dll"
+then 0A8E: 1@ = 0@ + 0x21A10C
+    0A8D: 1@ = readMem 1@ sz 4 vp 0
+    1@ += 0xC
+    0A8D: 2@ = readMem 1@ sz 4 vp 0
+    1@ += 0x4
+    0A8D: 3@ = readMem 1@ sz 4 vp 0
+    1@ += 0x4
+    0A8D: 4@ = readMem 1@ sz 4 vp 0
+    0AA3: freelib 0@
+end
+0AB2: ret 3 2@ 3@ 4@
